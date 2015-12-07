@@ -1,8 +1,6 @@
 var allStores = [];
 var totalCookies = [];
-
-var trow = document.createElement('tr');
-var tdata = document.createElement('td');
+var storeHours = ['Store Name','10am','11am','12noon','1pm','2pm','3pm','4pm','5pm'];
 
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
@@ -24,7 +22,7 @@ function storesCreated() {
 
 //random number generator
 function randomNum() {
-  for( var i = 0; i < allStores.length; i++ ){
+  for( var i = 0; i < storeHours.length; i++ ){
     var maxCust = parseInt(allStores[i].maxCustmrPerHr);
     var minCust = parseInt(allStores[i].minCustmrPerHr);
     return Math.floor(Math.random() * (maxCust- minCust)) + minCust
@@ -39,21 +37,35 @@ function totalCookiesPerHr() {
   var totalC = randomNumOfCust * aveCookies;
   totalCookies.push(totalC);
   }
-}
-totalCookiesPerHr()
+} totalCookiesPerHr()
 
 //Creating Table
+var tableEl = document.getElementById('salestable');
+var thead = document.createElement('th');
+    thead.setAttribute('id','thead');
+var trowForHead = document.createElement('tr');
+
 function createTable() {
-  var tableEl = document.getElementById('salestable');
-  var thead = document.createElement('th');
-
-  tableEl.appendChild(thead);
-
+  for( var i = 0; i < storeHours.length; i++ ){
+    //store hours table head
+    var dataCell = document.createElement('td');
+    dataCell.textContent = storeHours[i];
+    trowForHead.appendChild(dataCell);
+    thead.appendChild(trowForHead);
+    tableEl.appendChild(thead);
+  }
 } createTable();
 
+for( var j = 0; j < allStores.length; j++ ) {
+    // store names
+    var rowEl = document.createElement('tr');
+    rowEl.setAttribute('id','trow'+[j]);
 
-
-
+    var dataCell2 = document.createElement('td');
+    dataCell2.textContent = allStores[j].storeName;
+    rowEl.appendChild(dataCell2);
+    tableEl.appendChild(rowEl);
+}
 
 
 
