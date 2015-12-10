@@ -1,8 +1,8 @@
 var allStores = [];
 var totalCookies = [];
-
-var trow = document.createElement('tr');
-var tdata = document.createElement('td');
+var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm'];
+// var trow = document.createElement('tr');
+// var tdata = document.createElement('td');
 
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
@@ -34,23 +34,52 @@ var randomNumOfCust = randomNum();
 
 //Total Cookies per Hour
 function totalCookiesPerHr() {
-  for( var j = 0; j < allStores.length; j++ ){
-  var aveCookies = parseInt(allStores[j].aveCookiePerHr);
-  var totalC = randomNumOfCust * aveCookies;
-  totalCookies.push(totalC);
+  for( var j = 1; j < hoursOfOp.length; j++ ){
+    for( var i = 0; i < allStores.length; i++ ){
+      var aveCookies = parseInt(allStores[i].aveCookiePerHr);
+      var totalC = randomNumOfCust * aveCookies;
+    }
+      randomNumOfCust = randomNum();
+      totalCookies.push(totalC);
+
   }
-}
-totalCookiesPerHr()
+} totalCookiesPerHr()
 
 //Creating Table
-function createTable() {
   var tableEl = document.getElementById('salestable');
   var thead = document.createElement('th');
+  var trow = document.createElement('tr');
+//creating Table head
+function createTableHead() {
+  for( var i = 0; i < hoursOfOp.length; i++ ){
+    var tdata = document.createElement('td');
+    tdata.textContent = hoursOfOp[i];
+    trow.appendChild(tdata);
+  }
+    thead.appendChild(trow);
+    tableEl.appendChild(thead);
+} createTableHead();
 
-  tableEl.appendChild(thead);
+// Creating Table rows with sales data and store name
+function createTableRows() {
+    for( var i = 0; i < allStores.length; i++ ){
+      var trow2 = document.createElement('tr');
+      trow2.setAttribute('id','row'+[i]);
+      var tdata2 = document.createElement('td');
+      tdata2.textContent = allStores[i].storeName;
+      trow2.appendChild(tdata2);
+      tableEl.appendChild(trow2);
 
-} createTable();
-
+    for( var j = 0; j < hoursOfOp.length; j++ ){
+    var rowEl = document.getElementById('row'+[i]);
+    var tdata3 = document.createElement('td');
+    tdata3.textContent = totalCookies[j];
+    rowEl.appendChild(tdata3);
+    tableEl.appendChild(rowEl);
+    // break;
+    }
+  }
+} createTableRows();
 
 
 
