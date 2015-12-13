@@ -1,7 +1,7 @@
 var allStores = [];
 var totalCookies = [];
 var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm'];
-
+var table;
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
   this.storeName = storeName;
@@ -32,9 +32,46 @@ Store.prototype.totalCookiesPerHr = function() {
   console.log(totalCookiesPerHr());
 };
 
-// Store.prototype.hourlyCookiesArray = function() {
-//     this.hourlyCookies.push(this.totalCookiesPerHr());
-// };
+Store.prototype.createRows = function () {
+  for( var i = 0; i < allStores.length; i++){
+  var storeIndex = allStores[i].storeName;
+  console.log(storeIndex);
+  var rowId = document.getElementById('storeRow' + indexOf(storeIndex));
+
+  console.log(rowId);
+  }
+  //   for( var j = 0; j < this.hourlyCookies.length; j++){
+  //   var dataEl = document.createElement('td');
+  //   dataEl.textContent = this.hourlyCookies[j];
+  //   }
+  //   rowId.appendChild(dataEl);
+};
+
+function createStoreNameColumn () {
+  for( var i = 0; i < allStores.length; i++){
+    var rowEl = document.createElement('tr');
+    rowEl.setAttribute('id','storeRow'+[i]);
+    var dataEl = document.createElement('td');
+    dataEl.textContent = allStores[i].storeName;
+    rowEl.appendChild(dataEl);
+    table.appendChild(rowEl);
+  }
+}
+
+//Create Table and Table Head with store hours
+function createTable() {
+  table = document.getElementById('salestable');
+  var tableHead = document.createElement('th');
+  var tableRow = document.createElement('tr');
+    for( var j = 0; j < hoursOfOp.length; j++){
+      var dataEl = document.createElement('td');
+      dataEl.textContent = hoursOfOp[j];
+      tableRow.appendChild(dataEl);
+    }
+  tableHead.appendChild(tableRow);
+  table.appendChild(tableHead);
+}
+
 
 //new stores
 var PP = new Store('Pike Place Market',88,17,5.2);
@@ -50,8 +87,9 @@ SCM.totalCookiesPerHr();
 BS.totalCookiesPerHr();
 ALK.totalCookiesPerHr();
 
+createTable();
+createStoreNameColumn();
 
-
-
+PP.createRows();
 
 
