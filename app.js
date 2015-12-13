@@ -1,6 +1,6 @@
 var allStores = [];
 var totalCookies = [];
-var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm'];
+var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','Total'];
 var table;
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
@@ -10,7 +10,7 @@ function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
   this.aveCookiePerHr = aveCookiePerHr;
   this.hourlyCookies = [];
   allStores.push(this);
-
+  this.storeIndex = 0;
 }
 
 Store.prototype.randomNum = function () {
@@ -28,23 +28,19 @@ Store.prototype.totalCookiesPerHr = function() {
   var hrCookies6 = Math.round(this.aveCookiePerHr * this.randomNum());
   var hrCookies7 = Math.round(this.aveCookiePerHr * this.randomNum());
   var hrCookies8 = Math.round(this.aveCookiePerHr * this.randomNum());
-  return this.hourlyCookies.push(hrCookies1,hrCookies2,hrCookies3,hrCookies4,hrCookies5,hrCookies6,hrCookies7,hrCookies8);
+  var hrCookiesSum = hrCookies1 + hrCookies2 + hrCookies3 + hrCookies4 + hrCookies5 + hrCookies6 + hrCookies7 + hrCookies8;
+  return this.hourlyCookies.push(hrCookies1,hrCookies2,hrCookies3,hrCookies4,hrCookies5,hrCookies6,hrCookies7,hrCookies8, hrCookiesSum);
   console.log(totalCookiesPerHr());
 };
 
-Store.prototype.createRows = function () {
-  for( var i = 0; i < allStores.length; i++){
-  var storeIndex = allStores[i].storeName;
-  console.log(storeIndex);
-  var rowId = document.getElementById('storeRow' + indexOf(storeIndex));
-
-  console.log(rowId);
+Store.prototype.dataCells = function () {
+  for( var j = 0; j < this.hourlyCookies.length; j ++){
+  var rowEl = document.getElementById('storeRow'+this.storeIndex);
+  console.log(rowEl);
+  var dataEl = document.createElement('td');
+  dataEl.textContent = this.hourlyCookies[j]
+  rowEl.appendChild(dataEl);
   }
-  //   for( var j = 0; j < this.hourlyCookies.length; j++){
-  //   var dataEl = document.createElement('td');
-  //   dataEl.textContent = this.hourlyCookies[j];
-  //   }
-  //   rowId.appendChild(dataEl);
 };
 
 function createStoreNameColumn () {
@@ -90,6 +86,15 @@ ALK.totalCookiesPerHr();
 createTable();
 createStoreNameColumn();
 
-PP.createRows();
+PP.dataCells();
+STA.storeIndex += 1;
+STA.dataCells();
+SCM.storeIndex += 2;
+SCM.dataCells();
+BS.storeIndex += 3;
+BS.dataCells();
+ALK.storeIndex += 4;
+ALK.dataCells();
+
 
 
