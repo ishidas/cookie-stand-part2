@@ -2,6 +2,7 @@ var allStores = [];
 var totalCookies = [];
 var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','Total'];
 var table;
+var tableRow;
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
   this.storeName = storeName;
@@ -38,6 +39,7 @@ Store.prototype.dataCells = function () {
   var rowEl = document.getElementById('storeRow'+this.storeIndex);
   console.log(rowEl);
   var dataEl = document.createElement('td');
+  dataEl.setAttribute('class','dataSet');
   dataEl.textContent = this.hourlyCookies[j]
   rowEl.appendChild(dataEl);
   }
@@ -48,24 +50,25 @@ function createStoreNameColumn () {
     var rowEl = document.createElement('tr');
     rowEl.setAttribute('id','storeRow'+[i]);
     var dataEl = document.createElement('td');
+    dataEl.setAttribute('class','nameRow');
     dataEl.textContent = allStores[i].storeName;
     rowEl.appendChild(dataEl);
     table.appendChild(rowEl);
   }
+
 }
 
 //Create Table and Table Head with store hours
 function createTable() {
   table = document.getElementById('salestable');
-  var tableHead = document.createElement('th');
-  var tableRow = document.createElement('tr');
+  tableRow = document.createElement('tr');
     for( var j = 0; j < hoursOfOp.length; j++){
-      var dataEl = document.createElement('td');
-      dataEl.textContent = hoursOfOp[j];
-      tableRow.appendChild(dataEl);
+      var tableHead = document.createElement('th');
+      tableHead.setAttribute('id','hours'+[j]);
+      tableHead.textContent = hoursOfOp[j];
+      tableRow.appendChild(tableHead);
     }
-  tableHead.appendChild(tableRow);
-  table.appendChild(tableHead);
+  table.appendChild(tableRow);
 }
 
 
