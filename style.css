@@ -6,3 +6,11 @@ table {
 .dataSet {
   width: 40px;
 }
+
+#newstoredata {
+  width: 500px;
+}
+
+#buttonstyle {
+  padding-left: 300px;
+}
