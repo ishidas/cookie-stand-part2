@@ -3,6 +3,7 @@ var totalCookies = [];
 var hoursOfOp = ['Store Name','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','Total'];
 var table;
 var tableRow;
+var formElement = document.getElementById('formfield');
 //store object
 function Store(storeName,maxCustmrPerHr,minCustmrPerHr,aveCookiePerHr) {
   this.storeName = storeName;
@@ -98,6 +99,77 @@ BS.storeIndex += 3;
 BS.dataCells();
 ALK.storeIndex += 4;
 ALK.dataCells();
+
+
+formElement.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var store = formElement[1].value;
+  var max = parseInt(formElement[2].value);
+  var min = parseInt(formElement[3].value);
+  var avg = parseInt(formElement[4].value);
+  var hrCookie = [];
+  var row;
+  var rowIndex = 4
+  var tdata;
+  var rowNew;
+
+  console.log(store);
+  console.log(max);
+  console.log(min);
+  console.log(avg);
+
+  function randomNum () {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+  } randomNum();
+  console.log(randomNum());
+function hrCookieArray (){
+  var hrCookiesNew1 = Math.round(avg * randomNum());
+  var hrCookiesNew2 = Math.round(avg * randomNum());
+  var hrCookiesNew3 = Math.round(avg * randomNum());
+  var hrCookiesNew4 = Math.round(avg * randomNum());
+  var hrCookiesNew5 = Math.round(avg * randomNum());
+  var hrCookiesNew6 = Math.round(avg * randomNum());
+  var hrCookiesNew7 = Math.round(avg * randomNum());
+  var hrCookiesNew8 = Math.round(avg * randomNum());
+  var hrTotal = hrCookiesNew1+hrCookiesNew2+hrCookiesNew3+hrCookiesNew4+hrCookiesNew5+hrCookiesNew6+hrCookiesNew7+hrCookiesNew8;
+  hrCookie.push(hrCookiesNew1,hrCookiesNew2,hrCookiesNew3,hrCookiesNew4,hrCookiesNew5,hrCookiesNew6,hrCookiesNew7,hrCookiesNew8,hrTotal);
+  console.log(hrCookie);
+} hrCookieArray();
+
+function addStoreName() {
+  rowNew = document.createElement('tr');
+  rowNew.setAttribute('id','storeRow5');
+  tdata = document.createElement('td');
+  tdata.setAttribute('class','nameRow');
+  tdata.textContent = store;
+  rowNew.appendChild(tdata);
+  table.appendChild(rowNew);
+} addStoreName();
+
+function createNewRow() {
+  for(var i = 0; i < hrCookie.length; i ++){
+    var data = document.createElement('td');
+    data.textContent = hrCookie[i];
+    rowNew.appendChild(data);
+  }
+    table.appendChild(rowNew);
+} createNewRow();
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
